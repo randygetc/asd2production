@@ -1,0 +1,84 @@
+version: 1
+note: "Initial design-time traceability. Code/test paths marked planned must be updated to actual paths by implementation tasks."
+outcomes:
+  BO-001:
+    title: "Employees resolve routine PTO without HR intervention"
+    requirements: [BR-001, BR-002, BR-003, BR-004, BR-005, BR-007, BR-009]
+    metrics: [SM-001, SM-002, SM-003, SM-004, SM-005]
+  BO-002:
+    title: "Exceptions remain under appropriate human authority"
+    requirements: [BR-006, BR-011]
+  BO-003:
+    title: "Decisions/actions are reconstructable"
+    requirements: [BR-008]
+  BO-004:
+    title: "Automation economics are measurable and bounded"
+    requirements: [BR-010]
+requirements:
+  BR-001:
+    patterns: [PAT-001, PAT-002]
+    adrs: [ADR-0001, ADR-0002]
+    components: [CMP-WF-001, CMP-LLM-001, CMP-LLM-002]
+    plan: [TASK-P3-001, TASK-P3-002, TASK-P8-001]
+    evals: [EVAL-INTENT]
+  BR-002:
+    patterns: [PAT-005]
+    adrs: [ADR-0007]
+    components: [CMP-POL-001, CMP-POL-002, CMP-POL-003]
+    plan: [TASK-P2-001, TASK-P2-002, TASK-P2-003, TASK-P3-004]
+    evals: [EVAL-POLICY, EVAL-APPLICABILITY]
+  BR-003:
+    patterns: [PAT-001]
+    adrs: [ADR-0003]
+    components: [CMP-CTL-001, CMP-CTL-002]
+    plan: [TASK-P4-001, TASK-P4-002, TASK-P4-003]
+  BR-004:
+    patterns: [PAT-001]
+    adrs: [ADR-0001]
+    components: [CMP-ID-001]
+    plan: [TASK-P1-001, TASK-P1-002, TASK-P1-004]
+  BR-005:
+    patterns: [PAT-001, PAT-003, PAT-004]
+    adrs: [ADR-0001, ADR-0003, ADR-0004, ADR-0008]
+    components: [CMP-CTL-001, CMP-CTL-002, CMP-CAP-001, CMP-VER-001]
+    plan: [TASK-P4-001, TASK-P4-002, TASK-P6-002, TASK-P6-003, TASK-P6-004]
+    planned_code:
+      - src/domain/pto/controls/
+      - src/domain/pto/routine-request-classifier.ts
+      - src/application/capabilities/submit-pto.ts
+      - src/application/verification/pto-submission-verifier.ts
+    planned_tests:
+      - tests/unit/pto/controls.test.ts
+      - tests/integration/pto/routine-workflow.test.ts
+      - tests/integration/pto/idempotency-verification.test.ts
+    production_metrics: [pto_routine_automation_rate, pto_verification_failure_rate]
+  BR-006:
+    patterns: [PAT-006, PAT-010]
+    adrs: [ADR-0012]
+    components: [CMP-APR-001, CMP-CTL-002]
+    plan: [TASK-P5-001, TASK-P5-002, TASK-P5-003]
+  BR-007:
+    patterns: [PAT-004]
+    adrs: [ADR-0008]
+    components: [CMP-CAP-001, CMP-INT-001, CMP-VER-001]
+    plan: [TASK-P6-001, TASK-P6-003, TASK-P6-004, TASK-P6-005]
+  BR-008:
+    patterns: [PAT-007]
+    adrs: [ADR-0009]
+    components: [CMP-AUD-001]
+    plan: [TASK-P7-001, TASK-P7-002]
+  BR-009:
+    patterns: [PAT-002]
+    adrs: [ADR-0002]
+    components: [CMP-WF-001]
+    plan: [TASK-P1-003]
+  BR-010:
+    patterns: [PAT-008]
+    adrs: [ADR-0010]
+    components: [CMP-COST-001, CMP-COST-002, CMP-COST-003, CMP-COST-004]
+    plan: [TASK-P7-003, TASK-P7-004, TASK-P7-005]
+    production_metrics: [pto_cost_per_verified_resolution, pto_cost_per_escalation]
+  BR-011:
+    patterns: [PAT-009]
+    adrs: [ADR-0011]
+    plan: [TASK-P9-003, TASK-P9-005]
